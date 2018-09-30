@@ -235,12 +235,9 @@ void UKF::Prediction(double delta_t) {
 
   //// Predict Sigma points
   Xsig_pred_ = PredictSigmaPoints(Xsig_aug, delta_t);
-  cout << Xsig_pred_ << endl;
 
   //// Predict mean and covariance of the state using predicted Sigma points.
   x_ = Xsig_pred_ * weights_;
-  cout << weights_ << endl;
-  cout << "x : " << x_ << endl;
 
   P_.fill(0.);
   for (int i=0; i<n_sig_; i++) {
@@ -314,9 +311,6 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
 
   // Calculate NIS for laser measurement
   nis_laser_ = y.transpose() * S.inverse() * y;
-
-  cout << "x : " << x_ << endl;
-  cout << "P : " << P_ << endl;
 }
 
 /**
@@ -404,9 +398,6 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
 
   // Calculate NIS for radar measurement
   nis_radar_ = y.transpose() * S.inverse() * y;
-
-  cout << "x : " << x_ << endl;
-  cout << "P : " << P_ << endl;
 }
 
 void UKF::NormalizeAngleOfComponent(VectorXd inVector, int index) {
