@@ -117,9 +117,9 @@ public:
    */
   void UpdateRadar(MeasurementPackage meas_package);
 
-  MatrixXd GenerateSigmaPoints(VectorXd x_aug, MatrixXd P_aug, int lambda, int n_sig);
+  MatrixXd GenerateSigmaPoints(VectorXd x_aug, MatrixXd P_aug);
 
-  MatrixXd PredictSigmaPoints(MatrixXd Xsig_aug, double delta_t, int n_x, int n_sig);
+  MatrixXd PredictSigmaPoints(MatrixXd Xsig_aug, double delta_t);
 
   /**
    * Normalizes the angle component of a vector.
