@@ -64,8 +64,17 @@ public:
   ///* Augmented state dimension
   int n_aug_;
 
+  ///* Number of sigma points
+  int n_sig_;
+
   ///* Sigma point spreading parameter
   double lambda_;
+
+  ///* Lidar measurement noise
+  MatrixXd R_laser_;
+
+  ///* Radar measurement noise
+  MatrixXd R_radar_;
 
   ///* Normalized Innovation Squared for Lidar and Radar measurements
   ///* Act as consistency-check metrics for the filter
@@ -108,11 +117,16 @@ public:
    */
   void UpdateRadar(MeasurementPackage meas_package);
 
-  const MatrixXd GenerateSigmaPoints();
+  MatrixXd GenerateSigmaPoints(VectorXd x_aug, MatrixXd P_aug, int lambda, int n_sig);
 
-  void PredictSigmaPoints(const MatrixXd & Xsig_aug, const double & delta_t);
+  MatrixXd PredictSigmaPoints(MatrixXd Xsig_aug, double delta_t, int n_x, int n_sig);
 
-  void PredictMeanAndCovariance();
+  /**
+   * Normalizes the angle component of a vector.
+   * @param inVector Input vector in which the angle component exists.
+   * @param index Index of the angle component inside the vector.
+   */
+  void NormalizeAngleOfComponent(VectorXd inVector, int index);
 };
 
 #endif /* UKF_H */
