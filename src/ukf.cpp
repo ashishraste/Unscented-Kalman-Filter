@@ -118,9 +118,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
       double ro_dot = meas_package.raw_measurements_[2];
       double x = ro * cos(theta);
       double y = ro * sin(theta);
-      double vx = ro_dot * cos(theta);
-      double vy = ro_dot * sin(theta);
-      double v = sqrt(vx * vx + vy * vy);
+      double v = ro_dot;
 
       x_ << x, y, v, 0, 0;
     }
@@ -169,13 +167,13 @@ MatrixXd UKF::PredictSigmaPoints(MatrixXd Xsig_aug, double delta_t) {
 
   for (int i = 0; i< n_sig_; i++)
   {
-    double p_x = Xsig_aug(0,i);
-    double p_y = Xsig_aug(1,i);
-    double v = Xsig_aug(2,i);
-    double yaw = Xsig_aug(3,i);
-    double yawd = Xsig_aug(4,i);
-    double nu_a = Xsig_aug(5,i);
-    double nu_yawdd = Xsig_aug(6,i);
+    const double p_x = Xsig_aug(0,i);
+    const double p_y = Xsig_aug(1,i);
+    const double v = Xsig_aug(2,i);
+    const double yaw = Xsig_aug(3,i);
+    const double yawd = Xsig_aug(4,i);
+    const double nu_a = Xsig_aug(5,i);
+    const double nu_yawdd = Xsig_aug(6,i);
 
     // Predicted state values
     double px_p, py_p;
